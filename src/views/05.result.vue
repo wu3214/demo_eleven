@@ -112,6 +112,7 @@
     },
     // 生命周期钩子 回调函数
     created() {
+      // mounted() {
       console.log(this.$route.query.q)
       axios({
         url: 'https://autumnfish.cn/search',

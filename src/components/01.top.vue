@@ -7,8 +7,9 @@
       <el-button round @click="change1(2)"> 修改樣式</el-button>
     </div>
     <div class="middle-box">
-      <div class="el-input el-input--small el-input--prefix">
-        <!-- 搜索框 -->
+      <search/>
+      <!-- <div class="el-input el-input--small el-input--prefix">
+        搜索框
         <input
           type="text"
           autocomplete="off"
@@ -20,7 +21,7 @@
         <span class="el-input__prefix">
           <i class="el-input__icon el-icon-search"></i>
         </span>
-      </div>
+      </div> -->
     </div>
     <div class="left-box">
       <!-- <el-button icon="el-icon-user-solid" circle @click="tologin"></el-button> -->
@@ -39,8 +40,13 @@
 </template>
 
 <script>
+// import search from '@/views/search.vue'
+import search from '@/views/search'
 export default {
   name: "top",
+  components:{
+      search,
+  },
   data() {
     return {
       // 输入的内容

@@ -31,7 +31,7 @@
     </div>
     <!-- 主体区域 -->
     <div class="main">
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </div>
     <!-- 播放标签 -->
     <div class="player">
