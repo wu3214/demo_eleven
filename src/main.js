@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import store from './store/index'
 // 导入 Element_ui
 import ElementUI from 'element-ui'
 // 导入 Element-ui 样式
 import 'element-ui/lib/theme-chalk/index.css'
 // 插件 Element-ui
 Vue.use(ElementUI)
-
+// ElementUI.Message.error('后台异常，请刷新或确认后台是否正常启动')
 // 导入全局初始化样式 
 import './assets/index.scss'
 // import './assets/heiseBJ.scss'
@@ -46,98 +46,189 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/discovery'
+      redirect: '/login'
     },
     {
       // 发现音乐
       path: '/discovery',
-      component: discovery
+      component: discovery,
+      meta: {
+        isLogin: true
+      },
     },
     {
       // 推荐歌单
       path: '/playlists',
-      component: playlists
+      component: playlists,
+      meta: {
+        isLogin: true
+      },
     },
     {
       // 推荐歌单
       path: '/playlist',
-      component: playlist
+      component: playlist,
+      meta: {
+        isLogin: true
+      },
     },
     {
       // 最新音乐
       path: '/songs',
-      component: songs
+      component: songs,
+      meta: {
+        isLogin: true
+      },
     },
     {
       // 最新音乐
       path: '/mvs',
-      component: mvs
+      component: mvs,
+      meta: {
+        isLogin: true
+      },
     },
     // mv详情
     {
       path: '/mv',
-      component: mv
+      component: mv,
+      meta: {
+        isLogin: true
+      },
     },
     // 搜索结果页
     {
       path: '/result',
-      component: result
+      component: result,
+      meta: {
+        isLogin: true
+      },
     },
     // 视频首页
     {
       path: '/videoIndex',
-      component: videoIndex
+      component: videoIndex,
+      meta: {
+        isLogin: true
+      },
     },
     // 首页
     {
       path: '/homePage',
-      component: homePage
+      component: homePage,
+      meta: {
+        isLogin: true
+      },
     },
     // 电影
     {
       path: '/films',
-      component: films
+      component: films,
+      meta: {
+        isLogin: true
+      },
     },
     // 电视
     {
       path: '/television',
-      component: television
+      component: television,
+      meta: {
+        isLogin: true
+      },
     },
     // 动漫
     {
       path: '/animes',
-      component: animes
+      component: animes,
+      meta: {
+        isLogin: true
+      },
     },
     // 综艺
     {
       path: '/varietys',
-      component: varietys
+      component: varietys,
+      meta: {
+        isLogin: true
+      },
     },
     // 电影电视、综艺描述详情
     {
       path: '/View',
-      component: View
+      component: View,
+      meta: {
+        isLogin: true
+      },
     },
     // 播放界面
     {
       path: '/playVideo',
-      component: playVideo
+      component: playVideo,
+      meta: {
+        isLogin: true
+      },
     },
     {
       path: '/login',
-      component: login
+      component: login,
+      meta: {
+        isLogin: false
+      }
     },
     {
       path: '/register',
-      component: register
+      component: register,
+      meta: {
+    isLogin: false
+  }
     },
   ]
 })
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+
+  //获取用户登录成功后储存的登录标志
+  let getFlag = localStorage.getItem("Flag");
+
+  //如果登录标志存在且为isLogin，即用户已登录
+  if(getFlag === "isLogin"){
+    //设置vuex登录状态为已登录
+    store.state.isLogin = true
+    next()
+    //如果已登录，还想想进入登录注册界面，则定向回首页
+    if (!to.meta.isLogin) {
+      // this.$message.error("请先退出登录");
+      ElementUI.Message.error('请先退出登录')
+      next({
+        path: '/discovery'
+      })
+    }
+  //如果登录标志不存在，即未登录
+  }else{
+    //用户想进入需要登录的页面，则定向回登录界面
+    if(to.meta.isLogin){
+      next({
+        path: '/login',
+      })
+      // this.$message.error("请先登录");
+      ElementUI.Message.error('请先登录')
+    //用户进入无需登录的界面，则跳转继续
+    }else{
+      next()
+    }
+  }
+});
+
+router.afterEach(route => {
+  window.scroll(0, 0);
+});
+
+
 new Vue({
   render: h => h(App),
   // 挂载到Vue示例上
-  router
+  router,
+  store,
 }).$mount('#app')

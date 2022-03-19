@@ -59,6 +59,22 @@ module.exports = {
                 '^/topMovieApi': ''
             }
         },
+        '/apilogin': {
+          target: 'http://localhost:8081/',
+            // ws: true,
+            changeOrigin: true, 
+            pathRewrite: {
+                '^/apilogin': ''
+            }
+        },
+        '/apiregister': {
+          target: 'http://localhost:8081/',
+            // ws: true,
+            changeOrigin: true, 
+            pathRewrite: {
+                '^/apiregister': ''
+            }
+        },
           // '/api': {
           //   target: 'https://music.163.com',
           //     // ws: true,

@@ -1050,15 +1050,6 @@
     -webkit-line-clamp: 2;
     font-size: 14px;
   }
-  // ::v-deep .el-drawer {
-  //   background-color: #f80808 !important
-  // }
-  
-  // .el-drawer{
-  //   // background-color: #84bb58;
-  //   // color: #bb8558;
-  //   background-color: #e3e3e3 !important
-  // }
   .login-wrap{
     // margin-top: 40%;
     height:30%;
@@ -1392,7 +1383,7 @@
   
   .top-container .middle-box {
     display: flex;
-    margin-right: 40%;
+    margin-left: 0%;
     align-items: center;
   }
   
@@ -1413,7 +1404,6 @@
     padding-top: 60px;
     padding-bottom: 60px;
   }
-
 
 
 }
